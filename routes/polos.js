@@ -5,7 +5,8 @@ const Polo = require("../models/polos");
 const Review = require("../models/reviews")
 
 // recuperer tout les POLOS
-router.get('/get' , (req,res) => {
+router.get('/get' , (req,res) => 
+    {
     Polo.find()
     .populate('comments')
     .then((data) => {
