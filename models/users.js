@@ -4,7 +4,8 @@ const UserSchema = new mongoose.Schema({
     username: String,
     email: String,
     password: String,
-    likes: { type: mongoose.Schema.Types.ObjectId, ref: polos},
+    token: String,
+    likes: { type: mongoose.Schema.Types.ObjectId, ref: 'polos'},
     address: {
      street: String,
      city: String,
@@ -13,6 +14,6 @@ const UserSchema = new mongoose.Schema({
   });
   
 
-const User = mongoose.model('polos', UserSchema);
+const User = mongoose.model('users', UserSchema);
 
 module.exports = User;
