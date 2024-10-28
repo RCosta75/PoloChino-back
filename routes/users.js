@@ -3,28 +3,25 @@ var router = express.Router();
 
 require('../models/connection');
 const User = require('../models/users');
-const { checkBody } = require('../modules/checkBody');
+const { checkBody } = require('../modules/checkbody');
 const bcrypt = require('bcrypt');
 const uid2 = require('uid2');
 
 router.post('/signup', (req, res) => {
-  if (!checkBody(req.body, ['firstName', 'username', 'password'])) {
+  if (!checkBody(req.body, ['username', 'email', 'password'])) {
     res.json({ result: false, error: 'Missing or empty fields' });
     return;
   }
 
   // Check if the user has not already been registered
-  User.findOne({ username: { $regex: new RegExp(req.body.email, 'i') } }).then(data => {
+  User.findOne({ email: { $regex: new RegExp(req.body.email, 'i') } }).then(data => {
     if (data === null) {
       const hash = bcrypt.hashSync(req.body.password, 10);
       const newUser = new User({
         username: req.body.username,
-  	    email: req.body.email,
+        email: req.body.email,
         password: hash,
         token: uid2(32),
-        
-      
-       
       });
 
       newUser.save().then(newDoc => {
@@ -34,11 +31,13 @@ router.post('/signup', (req, res) => {
       // User already exists in database
       res.json({ result: false, error: 'User already exists' });
     }
+  }).catch(error => {
+    res.json({ result: false, error: 'Database error', details: error });
   });
 });
 
 router.post('/signin', (req, res) => {
-  if (!checkBody(req.body, ['username', 'password'])) {
+  if (!checkBody(req.body, ['email', 'password'])) {
     res.json({ result: false, error: 'Missing or empty fields' });
     return;
   }
