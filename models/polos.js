@@ -4,8 +4,8 @@ const PoloSchema = new mongoose.Schema({
     name: String,
     price: Number,
     description: String,
-    comments: { text: { type: mongoose.Schema.Types.ObjectId, ref: review}, 
-}});
+    comments: { type: mongoose.Schema.Types.ObjectId, ref: "reviews"}, 
+});
 
 const Polo= mongoose.model('polos', PoloSchema);
 
