@@ -5,7 +5,7 @@ const ReviewSchema = new mongoose.Schema({
     message: String,
    });
    
- const Review= mongoose.model('reviews', ReviewSchema);
+ const Review = mongoose.model('reviews', ReviewSchema);
 
 
 module.exports = Review;
