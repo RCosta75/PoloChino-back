@@ -5,7 +5,6 @@ const PoloSchema = new mongoose.Schema({
     price: Number,
     description: String,
     matiere : String,
-    color : String,
     image : String,
     comments: { type: mongoose.Schema.Types.ObjectId, ref: "reviews"}, 
 });
