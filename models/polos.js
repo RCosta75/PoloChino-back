@@ -6,7 +6,9 @@ const PoloSchema = new mongoose.Schema({
     description: String,
     matiere : String,
     image : String,
-    comments: { type: mongoose.Schema.Types.ObjectId, ref: "reviews"}, 
+    marque : String,
+    coupe : String,
+    comments: { type: mongoose.Schema.Types.ObjectId, ref: "reviews"},
 });
 
 const Polo= mongoose.model('polos', PoloSchema);
