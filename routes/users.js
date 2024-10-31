@@ -51,4 +51,12 @@ router.post('/signin', (req, res) => {
   });
 });
 
+
+router.get('/get/:token' , (req,res) => {
+  User.findOne({token : req.params.token})
+  .then((data) => {
+    res.json({result : true , likes : data?.likes})
+  })
+})
+
 module.exports = router;
