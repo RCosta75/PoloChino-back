@@ -5,6 +5,7 @@ const UserSchema = new mongoose.Schema({
     email: String,
     password: String,
     token: String,
+    phoneNumber: Number,
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'polos'}],
     address: {
      street: String,
