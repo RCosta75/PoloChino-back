@@ -17,10 +17,10 @@ router.post('/', (req, res) => {
   
     newOrder.save()
       .then(data => {
-        res.status(201).json({Order: data});
+        res.json({Order: data});
       })
       .catch(err => {
-        res.status(500).json({ error: 'Failed to create order.' });
+        res.json({ error: 'Failed to create order.' });
       });
   });
   
