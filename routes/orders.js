@@ -27,7 +27,7 @@ router.post('/', (req, res) => {
   });
   
 router.get('/', (req, res) => {
-    Order.find().populate('User','Polo')
+    Order.find().populate('User').populate('Polo')
     .then((data) => {
         if(data){
         return res.json({ result: true, orders: data  })}
@@ -57,22 +57,6 @@ router.get('/:userId', (req, res) => {
       return res.json({ error: 'Failed to retrieve orders.' });
     });
 });
-
-
-
-
-
-
-
-module.exports = router;
-
-
-
-
-
-
-
-
 
 
 module.exports = router;
