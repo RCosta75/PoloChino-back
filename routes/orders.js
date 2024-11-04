@@ -35,7 +35,7 @@ router.post('/', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    Order.find()
+    Order.find().populate('User').populate('Polo')
     .then((data) => {
         if(data){
         return res.json({ result: true, orders: data  })}
@@ -59,10 +59,6 @@ router.get('/token/:token', (req, res) => {
       if (!user) {
         return res.json({ result: false, message: 'User not found.' });
       }
-
-
-
-
    // Find orders by user ID
   Order.find({ User: user._id })
   .populate('User') 
