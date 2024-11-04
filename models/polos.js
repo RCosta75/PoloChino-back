@@ -8,6 +8,7 @@ const PoloSchema = new mongoose.Schema({
     image : String,
     marque : String,
     coupe : String,
+    product : String,
     comments: { type: mongoose.Schema.Types.ObjectId, ref: "reviews"},
 });
 
