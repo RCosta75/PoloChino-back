@@ -12,6 +12,7 @@ var usersRouter = require('./routes/users');
 var likesRouter = require('./routes/likes');
 var polosRouter = require('./routes/polos');
 var ordersRouter = require('./routes/orders');
+var reviewsRouter = require('./routes/reviews');
 
 
 var app = express();
@@ -31,6 +32,6 @@ app.use('/users', usersRouter);
 app.use('/likes', likesRouter);
 app.use('/polos', polosRouter);
 app.use('/orders', ordersRouter);
-
+app.use('/reviews', reviewsRouter);
 
 module.exports = app;
