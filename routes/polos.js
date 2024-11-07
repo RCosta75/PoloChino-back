@@ -26,7 +26,7 @@ router.get("/getOne/:id", (req, res) => {
         _id: new ObjectId(req.params.id),
       },
     },
-    { 
+    {
       $unwind: {
         path: "$comments",
       },
@@ -49,6 +49,21 @@ router.get("/getOne/:id", (req, res) => {
     {
       $sort: {
         "comments._id": -1,
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "comments.user",
+        foreignField: "_id",
+        as: "comments.user",
+      },
+    },
+    {
+      $addFields: {
+        "comments.user": {
+          $first: "$comments.user.username",
+        },
       },
     },
     {
