@@ -15,22 +15,31 @@ router.get("/get", (req, res) => {
     });
 });
 
-router.post("/post/:token", (req, res) => {
-  User.findOne({ token: req.params.token }).then((data) => {
-    const newReview = new Review({
-      user: data,
+router.post("/post/:token", async (req, res) => {
+  const user = await User.findOne({ token: req.params.token }).lean();
+
+  const newReview = new Review({
+    user: user ? user._id : null,
+    titre: req.body.titre,
+    message: req.body.message,
+    note: req.body.note,
+  });
+
+  await newReview.save();
+
+  await Polo.findByIdAndUpdate(String(req.body.id), {
+    $push: { comments: newReview._id },
+  });
+
+  res.json({
+    result: true,
+    infos: "Review have been ",
+    newReview: {
       titre: req.body.titre,
       message: req.body.message,
       note: req.body.note,
-    });
-    newReview.save().then((data) => {
-      Polo.findOneAndUpdate(
-        { _id: req.body.id },
-        { $push: { comments: data } }
-      ).then(() =>
-        res.json({ result: true, infos: "Review have been ", newReview: data })
-      );
-    });
+      user: user.username,
+    },
   });
 });
 
